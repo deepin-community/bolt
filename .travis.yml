@@ -1,0 +1,20 @@
+language: c
+sudo: required
+dist: bionic
+
+services:
+  - docker
+
+env:
+  - OS=alpine
+  - OS=debian
+  - OS=arch
+  - OS=fedora
+
+install:
+  - docker build -t bolt-$OS -f ./contrib/Dockerfile-$OS .
+
+script:
+  - mkdir build-$OS
+  - sudo chown $(id -u):root build-$OS
+  - docker run --cap-drop=dac_override -e -t -v `pwd`:/src -v `pwd`/build-$OS:/build bolt-$OS ./contrib/docker-build.sh

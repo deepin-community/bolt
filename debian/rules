@@ -1,4 +1,21 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
+
+export systemdsystemunitdir=$(shell pkgconf --variable=systemdsystemunitdir systemd | sed s,^/,,)
+export udevdir=$(shell pkgconf --variable=udevdir udev | sed s,^/,,)
+
 %:
 	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-Dman=true \
+		-Dprivileged-group=sudo \
+		-Dtests-speed=slow \
+		-Dinstall-tests=true
+	
+# Remove LD_PRELOAD since it can cause some dbus-related tests to fail
+override_dh_auto_test:
+	env -u LD_PRELOAD dh_auto_test

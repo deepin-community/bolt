@@ -1,15 +1,65 @@
-Source: template-repository
-Section: unknown
+Source: bolt
+Section: admin
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian freedesktop.org maintainers <pkg-freedesktop-maintainers@lists.alioth.debian.org>
+Uploaders: Jeremy Bícha <jbicha@ubuntu.com>
+Build-Depends: asciidoc-base <!nodoc>,
+               debhelper-compat (= 13),
+               docbook-xml <!nodoc>,
+               libglib2.0-dev,
+               libpolkit-gobject-1-dev,
+               libudev-dev,
+               libumockdev-dev,
+               libxml2-utils <!nodoc>,
+               meson,
+               pkgconf,
+               python3-dbus <!nocheck>,
+               python3-dbusmock <!nocheck>,
+               python3-gi <!nocheck>,
+               systemd-dev,
+               umockdev <!nocheck>,
+               xmlto <!nodoc>,
+               xsltproc <!nodoc>
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Vcs-Browser: https://salsa.debian.org/freedesktop-team/bolt
+Vcs-Git: https://salsa.debian.org/freedesktop-team/bolt.git
+Homepage: https://gitlab.freedesktop.org/bolt/bolt
 
-Package: template-repository
+Package: bolt
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: system daemon to manage thunderbolt 3 devices
+ Thunderbolt 3 features different security modes that require
+ devices to be authorized before they can be used. The D-Bus API can be
+ used to list devices, enroll them (authorize and store them in the
+ local database) and forget them again (remove previously enrolled
+ devices). It also emits signals if new devices are connected (or
+ removed). During enrollment devices can be set to be automatically
+ authorized as soon as they are connected.  A command line tool, called
+ boltctl, can be used to control the daemon and perform all the above
+ mentioned tasks.
+
+Package: bolt-tests
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: gir1.2-glib-2.0,
+         gir1.2-umockdev-1.0,
+         python3,
+         python3-dbus,
+         python3-dbusmock,
+         python3-gi,
+         umockdev,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: system daemon to manage thunderbolt 3 devices - installed tests
+ Thunderbolt 3 features different security modes that require
+ devices to be authorized before they can be used. The D-Bus API can be
+ used to list devices, enroll them (authorize and store them in the
+ local database) and forget them again (remove previously enrolled
+ devices). It also emits signals if new devices are connected (or
+ removed). During enrollment devices can be set to be automatically
+ authorized as soon as they are connected.  A command line tool, called
+ boltctl, can be used to control the daemon and perform all the above
+ mentioned tasks.
+ .
+ This package includes tests to be used on the installed system.
