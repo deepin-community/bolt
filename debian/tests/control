@@ -1,0 +1,9 @@
+Tests: installed-tests
+Depends: dpkg-dev,
+         gir1.2-umockdev-1.0,
+         python3-dbus,
+         python3-dbusmock,
+         python3-gi,
+         umockdev,
+         @
+Restrictions: allow-stderr

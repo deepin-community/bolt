@@ -1,0 +1,5 @@
+${env:systemdsystemunitdir}
+${env:udevdir}
+usr/bin
+usr/libexec/boltd
+usr/share
